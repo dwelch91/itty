@@ -1,6 +1,6 @@
 from itty import *
 
-@get('/get/(?P<name>\w+)')
+@get('/get/{name}')
 def test_get(request, name=', world'):
     return 'Hello %s!' % name
 
