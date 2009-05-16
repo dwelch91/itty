@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from itty import *
 
-@get('/ct')
+@register('get', '/ct')
 def ct(request):
     response = Response('Check your Content-Type headers.', content_type='text/plain')
     return response
 
-@get('/headers')
+@register('get', '/headers')
 def test_headers(request):
     headers = [
         ('X-Powered-By', 'itty'),
@@ -19,7 +19,7 @@ def test_headers(request):
 def index(request):
     return 'You got redirected!'
 
-@get('/test_redirect')
+@register('get', '/test_redirect')
 def test_redirect(request):
     raise Redirect('/redirected')
 

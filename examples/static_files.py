@@ -12,7 +12,7 @@ def index(request):
 # different than where your ``itty.py`` lives, manually setup your root
 # directory as well. Finally, use the ``static_file`` helper to serve up the
 # file.
-@get('/media/(?P<filename>.+)')
+@register('get', '/media/{filename}')
 def my_media(request, filename):
     output = static_file(filename, root=MY_ROOT)
     return Response(output, content_type=content_type(filename))
