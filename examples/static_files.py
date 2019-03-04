@@ -3,7 +3,7 @@ from itty import *
 MY_ROOT = os.path.join(os.path.dirname(__file__), 'media')
 
 
-@get('/')
+@register('get', '/')
 def index(request):
     return '<img src="media/itty.png">'
 
@@ -15,12 +15,12 @@ def index(request):
 @register('get', '/media/{filename}')
 def my_media(request, filename):
     output = static_file(filename, root=MY_ROOT)
-    return Response(output, content_type=content_type(filename))
+    return Response(output, content_type=guess_content_type(filename))
 
 
 # Alternative, if sane-ish defaults are good enough for you, you can use the
 # ``serve_static_file`` handler to do the heavy lifting for you. For example:
-@get('/simple/')
+@register('get', '/simple/')
 def simple(request):
     return """
 <html>
@@ -39,7 +39,7 @@ def simple(request):
 # type. If needed, you can enforce a content type by using the
 # ``force_content_type`` kwarg (i.e. ``force_content_type='image/jpg'`` on a
 # directory of user uploaded images).
-@get('/simple_media/(?P<filename>.+)')
+@register('get', '/simple_media/(?P<filename>.+)')
 def simple_media(request, filename):
     return serve_static_file(request, filename, root=MY_ROOT)
 

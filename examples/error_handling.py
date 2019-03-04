@@ -1,5 +1,6 @@
 from itty import *
 
+
 @error(500)
 def my_great_500(request, exception):
     html_output = """
@@ -20,29 +21,35 @@ def my_great_500(request, exception):
     response = Response(html_output, status=500)
     return response.send(request._start_response)
 
+
 @register('get', '/hello')
 def hello(request):
     return 'Hello errors!'
+
 
 @register('get', '/test_404')
 def test_404(request):
     raise NotFound('Not here, sorry.')
     return 'This should never happen.'
 
+
 @register('get', '/test_500')
 def test_500(request):
-    raise AppError('Oops.')
+    raise ServerError('Oops.')
     return 'This should never happen either.'
 
-@get('/test_other')
+
+@register('get', '/test_other')
 def test_other(request):
     raise RuntimeError('Oops.')
     return 'This should never happen either either.'
 
-@get('/test_403')
+
+@register('get', '/test_403')
 def test_403(request):
     raise Forbidden('No soup for you!')
     return 'This should never happen either either either.'
+
 
 @register('get', '/test_redirect')
 def test_redirect(request):
